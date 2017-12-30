@@ -213,6 +213,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AutorController.cs" />
+    <Compile Include="Controllers\GatunekController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -294,6 +295,9 @@
     <Content Include="Views\Autor\Create.cshtml" />
     <Content Include="Views\Autor\Index.cshtml" />
     <Content Include="Views\Autor\Edit.cshtml" />
+    <Content Include="Views\Gatunek\Index.cshtml" />
+    <Content Include="Views\Gatunek\Create.cshtml" />
+    <Content Include="Views\Gatunek\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

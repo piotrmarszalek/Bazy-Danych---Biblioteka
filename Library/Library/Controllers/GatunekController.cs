@@ -4,26 +4,25 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Library.Models;
-
 namespace Library.Controllers
 {
-    public class AutorController : Controller
+    public class GatunekController : Controller
     {
         PGDbContext DB = new PGDbContext();
         // GET: Autor
         public ActionResult Index()
         {
-            string query = @"SELECT * FROM dbo.""Autor""";
-            List<Autor> wszyscyAutorzy = new List<Autor>();
+            string query = @"SELECT * FROM dbo.""Gatunek""";
+            List<Gatunek> wszystkieGatunki = new List<Gatunek>();
             try
             {
-                wszyscyAutorzy = DB.Autorzy.SqlQuery(query).ToList();
+                wszystkieGatunki = DB.Gatunki.SqlQuery(query).ToList();
             }
             catch (Exception e)
             {
                 return View("Error");
             }
-            return View(wszyscyAutorzy);
+            return View(wszystkieGatunki);
         }
 
         public ActionResult Create()
@@ -32,15 +31,15 @@ namespace Library.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Autor nowyAutor)
+        public ActionResult Create(Gatunek nowyGatunek)
         {
-            string query = @"INSERT INTO dbo.""Autor"" (""Imie"", ""Nazwisko"")  VALUES ('" + nowyAutor.Imie + "', '" + nowyAutor.Nazwisko + "');";
+            string query = @"INSERT INTO dbo.""Gatunek"" (""Nazwa"") VALUES ('" + nowyGatunek.Nazwa + "');";
 
             try
             {
                 DB.Database.ExecuteSqlCommand(query);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return View("Error");
             }
@@ -49,23 +48,23 @@ namespace Library.Controllers
 
         public ActionResult Edit(int id)
         {
-            string query = @"SELECT * FROM dbo.""Autor"" WHERE ""AutorId"" = " + id + ";";
-            Autor autorDoEdycji = new Autor();
+            string query = @"SELECT * FROM dbo.""Gatunek"" WHERE ""GatunekId"" = " + id + ";";
+            Gatunek gatunekDoEdycji = new Gatunek();
             try
             {
-                autorDoEdycji = DB.Autorzy.SqlQuery(query).ToList().ElementAt(0);
+                gatunekDoEdycji = DB.Gatunki.SqlQuery(query).ToList().ElementAt(0);
             }
             catch (Exception e)
             {
                 return View("Error");
             }
-            return View(autorDoEdycji);
+            return View(gatunekDoEdycji);
         }
 
         [HttpPost]
-        public ActionResult Edit(Autor autor)
+        public ActionResult Edit(Gatunek gatunek)
         {
-            string query = @"UPDATE dbo.""Autor"" SET ""Imie"" = '" + autor.Imie + "' ,\"Nazwisko\" = '" + autor.Nazwisko + "' WHERE \"AutorId\" = " + autor.AutorId + ";";
+            string query = @"UPDATE dbo.""Gatunek"" SET ""Nazwa"" = '" + gatunek.Nazwa + "' WHERE \"GatunekId\" = " + gatunek.GatunekId + ";";
             try
             {
                 DB.Database.ExecuteSqlCommand(query);
@@ -79,7 +78,7 @@ namespace Library.Controllers
 
         public ActionResult Delete(int id)
         {
-            string query = @"DELETE from dbo.""Autor""  WHERE ""AutorId"" = " + id + ";";
+            string query = @"DELETE from dbo.""Gatunek""  WHERE ""GatunekId"" = " + id + ";";
             try
             {
                 DB.Database.ExecuteSqlCommand(query);
@@ -91,7 +90,5 @@ namespace Library.Controllers
             return RedirectToAction("Index");
 
         }
-
-
     }
 }
