@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Library.Models.Ksiazka>
+
+<h2>Książki</h2>
+
+<p>
+    @Html.ActionLink("Dodaj nową", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nazwa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Autorzy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Wydawnictwo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gatunek)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nazwa)
+        </td>
+        <td>
+            @foreach (var autor in item.Autorzy)
+            {
+                Html.DisplayFor(autorImie => autor.Imie);
+                Html.DisplayFor(autorNazwisko => autor.Nazwisko);
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Wydawnictwo.Nazwa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gatunek.Nazwa)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.KsiazkaId }) |
+            @Html.ActionLink("Usuń", "Delete", new { id=item.KsiazkaId })
+        </td>
+    </tr>
+}
+
+</table>

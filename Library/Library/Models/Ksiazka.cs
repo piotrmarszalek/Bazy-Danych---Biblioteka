@@ -17,7 +17,7 @@ namespace Library.Models
         [Index(IsUnique = true)]
         public string Nazwa { get; set; }
         public virtual ICollection <Autor> Autorzy { get; set; }
-        public int WydawnictoId { get; set; }
+        public int WydawnictwoId { get; set; }
         public virtual Wydawnictwo Wydawnictwo { get; set; }
         public int GatunekId { get; set; }
         public virtual Gatunek Gatunek { get; set; }

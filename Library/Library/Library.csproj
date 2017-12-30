@@ -215,6 +215,7 @@
     <Compile Include="Controllers\AutorController.cs" />
     <Compile Include="Controllers\GatunekController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KsiazkaController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\WydawnictwoController.cs" />
     <Compile Include="Global.asax.cs">
@@ -303,6 +304,8 @@
     <Content Include="Views\Wydawnictwo\Create.cshtml" />
     <Content Include="Views\Wydawnictwo\Edit.cshtml" />
     <Content Include="Views\Wydawnictwo\Delete.cshtml" />
+    <Content Include="Views\Ksiazka\Index.cshtml" />
+    <Content Include="Views\Ksiazka\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
