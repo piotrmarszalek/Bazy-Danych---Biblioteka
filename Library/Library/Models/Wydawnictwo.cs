@@ -9,6 +9,7 @@ namespace Library.Models
     public class Wydawnictwo
     {
         public int WydawnictwoId { get; set; }
+        [Index(IsUnique = true)]
         public string Nazwa { get; set; }
     }
 }
