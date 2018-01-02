@@ -1,0 +1,63 @@
+﻿@model Library.Models.Ksiazka
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Ksiazka</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.KsiazkaId)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nazwa, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nazwa, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nazwa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+            <p>Autorzy</p>
+            @for (int i = 0; i < ViewBag.wszyscyAutorzy.Count; i++)
+            {
+                <input type="checkbox"
+                       name="wybraniAutorzy"
+                       value="@ViewBag.wszyscyAutorzy[i].AutorId"
+                       id=@ViewBag.wszyscyAutorzy[i].Imie + @ViewBag.wszyscyAutorzy[i].Nazwisko/>
+
+                    @ViewBag.wszyscyAutorzy[i].Imie  @ViewBag.wszyscyAutorzy[i].Nazwisko  <br />
+            }
+  
+            <div class="form-group">
+                @Html.LabelFor(model => model.Gatunek, "Gatunek", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.GatunekId, new SelectList(@ViewBag.wszystkieGatunki, "GatunekId", "Nazwa"))
+                    @Html.ValidationMessageFor(model => model.GatunekId)
+                </div>
+            </div>
+        
+            <div class="form-group">
+                @Html.LabelFor(model => model.Wydawnictwo, "Wydawnictwo", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.WydawnictwoId, new SelectList(@ViewBag.wszystkieWydawnictwa, "WydawnictwoId", "Nazwa"))
+                    @Html.ValidationMessageFor(model => model.WydawnictwoId)
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Edytuj" class="btn btn-default" />
+                </div>
+            </div>
+        
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Powrót do listy książek", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

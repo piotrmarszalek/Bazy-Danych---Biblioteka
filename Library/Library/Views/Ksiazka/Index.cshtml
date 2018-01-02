@@ -27,12 +27,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.Nazwa)
         </td>
-        <td>
-            @foreach (var autor in item.Autorzy)
+        <td>       
+            @for(int i = 0; i < item.Autorzy.Count; i++) 
             {
-                Html.DisplayFor(autorImie => autor.Imie);
-                Html.DisplayFor(autorNazwisko => autor.Nazwisko);
+                @Html.DisplayFor(nodelItem => item.Autorzy.ElementAt(i).Imie);
+                @:&nbsp;
+                @Html.DisplayFor(nodelItem => item.Autorzy.ElementAt(i).Nazwisko);
+                <br />
             }
+
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Wydawnictwo.Nazwa)

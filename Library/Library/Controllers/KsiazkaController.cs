@@ -11,6 +11,70 @@ namespace Library.Controllers
     {
         PGDbContext DB = new PGDbContext();
         // GET: Autor
+
+
+        private void DodajAutorowDoKsiazek(List<Ksiazka> ksiazki)
+        {
+            try
+            {
+                foreach (var ksiazka in ksiazki)
+                {
+                    DodajAutorowDoKsiazki(ksiazka);
+                }
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
+
+        private void DodajAutorowDoKsiazki(Ksiazka ksiazka)
+        {
+            try
+            {
+                string queryWszyscyAutorzy = @"SELECT * from dbo.""Autor"" JOIN dbo.""KsiazkaAutors"" on dbo.""KsiazkaAutors"".""Autor_AutorId"" = dbo.""Autor"".""AutorId"" WHERE dbo.""KsiazkaAutors"".""Ksiazka_KsiazkaId"" = ";
+                ksiazka.Autorzy = DB.Autorzy.SqlQuery(queryWszyscyAutorzy + ksiazka.KsiazkaId + ";").ToList();
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
+
+        private void ZaktualizujAutorowKsiazki(Ksiazka ksiazka, string[] wybraniAutorzy)
+        {
+            try
+            {
+                UsunPoprzednichAutorowKsiazki(ksiazka);
+                if (wybraniAutorzy != null)
+                {
+                    foreach (var autorId in wybraniAutorzy)
+                    {
+                        string query = @"INSERT INTO dbo.""KsiazkaAutors"" (""Ksiazka_KsiazkaId"", ""Autor_AutorId"") VALUES ('" + ksiazka.KsiazkaId +
+                                       "', '" + autorId + "');";
+                        DB.Database.ExecuteSqlCommand(query);
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
+
+        private void UsunPoprzednichAutorowKsiazki(Ksiazka ksiazka)
+        {
+            try
+            {
+                string query = @"DELETE from dbo.""KsiazkaAutors""  WHERE ""Ksiazka_KsiazkaId"" = " + ksiazka.KsiazkaId + ";";
+                DB.Database.ExecuteSqlCommand(query);
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
+
         public ActionResult Index()
         {
             string query = @"SELECT * FROM dbo.""Ksiazka""";
@@ -18,6 +82,8 @@ namespace Library.Controllers
             try
             {
                 wszystkieKsiazki = DB.Ksiazki.SqlQuery(query).ToList();
+                DodajAutorowDoKsiazek(wszystkieKsiazki);
+
             }
             catch (Exception e)
             {
@@ -40,20 +106,12 @@ namespace Library.Controllers
             query = @"SELECT * FROM dbo.""Wydawnictwo""";
             List<Wydawnictwo> wszystkieWydawnictwa = DB.Wydawnictwa.SqlQuery(query).ToList();
             ViewBag.wszystkieWydawnictwa = wszystkieWydawnictwa;
-
             return View();
         }
 
         [HttpPost]
         public ActionResult Create(Ksiazka nowaKsiazka, string[] wybraniAutorzy)
         {
-            foreach(var id in wybraniAutorzy)
-            {
-                string autorQuery = @"SELECT * FROM dbo.""Autor"" WHERE ""AutorId"" = " + id + ";";
-                Autor autorKsiazki = DB.Autorzy.SqlQuery(autorQuery).ToList().ElementAt(0);
-                nowaKsiazka.Autorzy.Add(autorKsiazki);
-            }
-
             string query = @"INSERT INTO dbo.""Ksiazka"" (""Nazwa"", ""WydawnictwoId"", ""GatunekId"") VALUES ('" + nowaKsiazka.Nazwa + 
                             "', '" + nowaKsiazka.WydawnictwoId + "', ' " + nowaKsiazka.GatunekId +  "');";
             try
@@ -62,12 +120,7 @@ namespace Library.Controllers
 
                 string queryId = @"SELECT * FROM dbo.""Ksiazka"" WHERE ""Nazwa"" = '" + nowaKsiazka.Nazwa + "';";
                 Ksiazka dodanaKsiazka = DB.Ksiazki.SqlQuery(queryId).ToList().ElementAt(0);
-                foreach(var autorId in wybraniAutorzy)
-                {
-                    string query2 = @"INSERT INTO dbo.""KsiazkaAutors"" (""Ksiazka_KsiazkaId"", ""Autor_AutorId"") VALUES ('" + dodanaKsiazka.KsiazkaId +
-                                    "', '" + autorId + "');";
-                    DB.Database.ExecuteSqlCommand(query2);
-                }
+                ZaktualizujAutorowKsiazki(dodanaKsiazka, wybraniAutorzy);
 
             }
             catch (Exception e)
@@ -84,6 +137,18 @@ namespace Library.Controllers
             try
             {
                 ksiazkaDoEdycji = DB.Ksiazki.SqlQuery(query).ToList().ElementAt(0);
+                DodajAutorowDoKsiazki(ksiazkaDoEdycji);
+                string tmpQuery = @"SELECT * FROM dbo.""Autor""";
+                List<Autor> wszyscyAutorzy = DB.Autorzy.SqlQuery(tmpQuery).ToList();
+                ViewBag.wszyscyAutorzy = wszyscyAutorzy;
+
+                tmpQuery = @"SELECT * FROM dbo.""Gatunek""";
+                List<Gatunek> wszystkieGatunki = DB.Gatunki.SqlQuery(tmpQuery).ToList();
+                ViewBag.wszystkieGatunki = wszystkieGatunki;
+
+                tmpQuery = @"SELECT * FROM dbo.""Wydawnictwo""";
+                List<Wydawnictwo> wszystkieWydawnictwa = DB.Wydawnictwa.SqlQuery(tmpQuery).ToList();
+                ViewBag.wszystkieWydawnictwa = wszystkieWydawnictwa;
             }
             catch (Exception e)
             {
@@ -93,12 +158,14 @@ namespace Library.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Wydawnictwo wydawnictwo)
+        public ActionResult Edit(Ksiazka ksiazka, string[] wybraniAutorzy)
         {
-            string query = @"UPDATE dbo.""Wydawnictwo"" SET ""Nazwa"" = '" + wydawnictwo.Nazwa + "' WHERE \"WydawnictwoId\" = " + wydawnictwo.WydawnictwoId + ";";
+            string query = @"UPDATE dbo.""Ksiazka"" SET ""Nazwa"" = '" + ksiazka.Nazwa + "' , \"WydawnictwoId\" = " 
+                            + ksiazka.WydawnictwoId + ", \"GatunekId\" = "  + ksiazka.GatunekId + " WHERE \"KsiazkaId\" = " + ksiazka.KsiazkaId + ";";
             try
             {
                 DB.Database.ExecuteSqlCommand(query);
+                ZaktualizujAutorowKsiazki(ksiazka, wybraniAutorzy);
             }
             catch (Exception e)
             {
@@ -109,7 +176,7 @@ namespace Library.Controllers
 
         public ActionResult Delete(int id)
         {
-            string query = @"DELETE from dbo.""Wydawnictwo""  WHERE ""WydawnictwoId"" = " + id + ";";
+            string query = @"DELETE from dbo.""Ksiazka""  WHERE ""KsiazkaId"" = " + id + ";";
             try
             {
                 DB.Database.ExecuteSqlCommand(query);

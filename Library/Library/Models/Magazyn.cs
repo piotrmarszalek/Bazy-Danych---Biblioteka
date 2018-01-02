@@ -12,8 +12,11 @@ namespace Library.Models
     {
         [Key]
         [ForeignKey("Ksiazka")]
+        [Required]
         public int KsiazkaId { get; set; }
+        [Required]
         public virtual Ksiazka Ksiazka { get; set; }
+        [Required]
         public int DostepnaIlosc { get; set; }
     }
 }

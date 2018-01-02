@@ -306,6 +306,7 @@
     <Content Include="Views\Wydawnictwo\Delete.cshtml" />
     <Content Include="Views\Ksiazka\Index.cshtml" />
     <Content Include="Views\Ksiazka\Create.cshtml" />
+    <Content Include="Views\Ksiazka\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
