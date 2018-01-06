@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Library.Models.Transakcja>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj transakcję", "Create")
 </p>
 <table class="table">
     <tr>
@@ -40,9 +40,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.DataOddania)
         </td>
+        @if (item.DataOddania == null)
+        {
         <td>
-            @Html.ActionLink("Dodaj datę oddania książki", "Edit", new { id=item.TransakcjaId })
+            @Html.ActionLink("Dodaj datę oddania książki", "Edit", new { id = item.TransakcjaId })
         </td>
+        }
     </tr>
 }
 

@@ -321,6 +321,7 @@
     <Content Include="Views\Magazyn\Edit.cshtml" />
     <Content Include="Views\Transakcja\Index.cshtml" />
     <Content Include="Views\Transakcja\Create.cshtml" />
+    <Content Include="Views\Transakcja\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
