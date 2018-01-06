@@ -213,10 +213,14 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AutorController.cs" />
+    <Compile Include="Controllers\CzytelnikController.cs" />
     <Compile Include="Controllers\GatunekController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KsiazkaController.cs" />
+    <Compile Include="Controllers\MagazynController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MiastoController.cs" />
+    <Compile Include="Controllers\TransakcjaController.cs" />
     <Compile Include="Controllers\WydawnictwoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -307,6 +311,16 @@
     <Content Include="Views\Ksiazka\Index.cshtml" />
     <Content Include="Views\Ksiazka\Create.cshtml" />
     <Content Include="Views\Ksiazka\Edit.cshtml" />
+    <Content Include="Views\Miasto\Index.cshtml" />
+    <Content Include="Views\Miasto\Create.cshtml" />
+    <Content Include="Views\Miasto\Edit.cshtml" />
+    <Content Include="Views\Czytelnik\Index.cshtml" />
+    <Content Include="Views\Czytelnik\Create.cshtml" />
+    <Content Include="Views\Czytelnik\Edit.cshtml" />
+    <Content Include="Views\Magazyn\Index.cshtml" />
+    <Content Include="Views\Magazyn\Edit.cshtml" />
+    <Content Include="Views\Transakcja\Index.cshtml" />
+    <Content Include="Views\Transakcja\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

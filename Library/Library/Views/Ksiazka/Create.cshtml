@@ -1,12 +1,12 @@
 ﻿@model Library.Models.Ksiazka
 
-
+<h2> Nowa książka</h2>
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Ksiazka</h4>
+        <h4>Książka</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

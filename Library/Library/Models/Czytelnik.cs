@@ -21,5 +21,6 @@ namespace Library.Models
         [Required]
         public int MiastoId { get; set; }
         public virtual Miasto Miasto { get; set; }
+        public string Login { get; set; }
     }
 }

@@ -20,6 +20,6 @@ namespace Library.Models
         public virtual Ksiazka Ksiazka { get; set; }
         [Required]
         public DateTime DataWypozyczenia { get; set; }
-        public DateTime DataOddania { get; set; }
+        public DateTime? DataOddania { get; set; }
     }
 }

@@ -1,0 +1,67 @@
+﻿@model Library.Models.Transakcja
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Transakcja</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @if (ViewBag.wszyscyCzytelnicy.Count == 0)
+        {
+            <p>Brak czytelników w bazie danych - dodaj czytelnika, aby mógł wypozyczyć ksiązkę.</p>
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Czytelnik, "Czytelnik", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.CzytelnikId, new SelectList(@ViewBag.wszyscyCzytelnicy, "CzytelnikId", "Login"))
+                    @Html.ValidationMessageFor(model => model.CzytelnikId)
+                </div>
+            </div>
+        }
+
+        @if (ViewBag.wszyscyCzytelnicy.Count == 0)
+        {
+            <p>Brak książek w bazie danych - dodaj książkę, aby ją wypozyczyć.</p>
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Ksiazka, "Ksiazka", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.KsiazkaId, new SelectList(@ViewBag.wszystkieKsiazki, "KsiazkaId", "Nazwa"))
+                    @Html.ValidationMessageFor(model => model.KsiazkaId)
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DataWypozyczenia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.DataWypozyczenia, new { type = "date" })
+                @Html.ValidationMessageFor(model => model.DataWypozyczenia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+@if (ViewBag.wszyscyCzytelnicy.Count > 0 && ViewBag.wszystkieKsiazki.Count >0 )
+{ 
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Dodaj" class="btn btn-default" />
+            </div>
+        </div>
+}
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Powrót do listy", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

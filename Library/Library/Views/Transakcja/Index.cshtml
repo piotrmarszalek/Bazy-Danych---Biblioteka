@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Library.Models.Transakcja>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Czytelnik.Imie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Czytelnik.Nazwisko)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ksiazka.Nazwa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataWypozyczenia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataOddania)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Czytelnik.Imie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Czytelnik.Nazwisko)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ksiazka.Nazwa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataWypozyczenia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataOddania)
+        </td>
+        <td>
+            @Html.ActionLink("Dodaj datę oddania książki", "Edit", new { id=item.TransakcjaId })
+        </td>
+    </tr>
+}
+
+</table>

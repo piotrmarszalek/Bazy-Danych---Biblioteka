@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Library.Models.Magazyn>
+
+<h1>Magazyn</h1>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Ksiazka.Nazwa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ksiazka.Autorzy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ksiazka.Wydawnictwo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ksiazka.Gatunek)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DostepnaIlosc)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ksiazka.Nazwa)
+            </td>
+            <td>
+                @for (int i = 0; i < item.Ksiazka.Autorzy.Count; i++)
+                {
+                    @Html.DisplayFor(nodelItem => item.Ksiazka.Autorzy.ElementAt(i).Imie);
+                    @:&nbsp;
+                    @Html.DisplayFor(nodelItem => item.Ksiazka.Autorzy.ElementAt(i).Nazwisko);
+                    <br />
+                }
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ksiazka.Wydawnictwo.Nazwa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ksiazka.Gatunek.Nazwa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DostepnaIlosc)
+            </td>
+            <td>
+                @Html.ActionLink("Zmień dostępną ilość", "Edit", new { id = item.KsiazkaId })
+            </td>
+        </tr>
+    }
+
+</table>

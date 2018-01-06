@@ -33,7 +33,7 @@ namespace Library.Controllers
             try
             {
                 string queryWszyscyAutorzy = @"SELECT * from dbo.""Autor"" JOIN dbo.""KsiazkaAutors"" on dbo.""KsiazkaAutors"".""Autor_AutorId"" = dbo.""Autor"".""AutorId"" WHERE dbo.""KsiazkaAutors"".""Ksiazka_KsiazkaId"" = ";
-                ksiazka.Autorzy = DB.Autorzy.SqlQuery(queryWszyscyAutorzy + ksiazka.KsiazkaId + ";").ToList();
+                ksiazka.Autorzy = DB.Autorzy.SqlQuery(queryWszyscyAutorzy + ksiazka.KsiazkaId + " ;").ToList();
             }
             catch(Exception e)
             {

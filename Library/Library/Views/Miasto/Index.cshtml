@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Library.Models.Miasto>
+
+<h2> Miasta </h2>
+<p>
+    @Html.ActionLink("Dodaj nowe", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nazwa)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nazwa)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.MiastoId }) |
+            @Html.ActionLink("Usuń", "Delete", new { id=item.MiastoId })
+        </td>
+    </tr>
+}
+
+</table>
