@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Library.Models.Transakcja>
+
+
+<h1>RAPORTY</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+
+            <div class="form-group">
+                <p>Ksiazka:</p>
+                <div class="col-md-10">
+                    @Html.DropDownList("ksiazkaId", new SelectList(@ViewBag.wszystkieKsiazki, "KsiazkaId", "Nazwa"))
+                </div>
+            </div>
+            <br />
+
+            <div class="form-group">
+                <p>Czytelnik:</p>
+                <div class="col-md-10">
+                    @Html.DropDownList("czytelnikId", new SelectList(@ViewBag.wszyscyCzytelnicy, "CzytelnikId", "Login"))
+                </div>
+            </div>
+            <br />
+
+            <div class="form-group">
+                <p>Miasto:</p>
+                <div class="col-md-10">
+                    @Html.DropDownList("miastoId", new SelectList(@ViewBag.wszystkieMiasta, "MiastoId", "Nazwa"))
+                </div>
+            </div>
+            <br />
+
+            <div class="form-group">
+                <p>Autor:</p>
+                <div class="col-md-10">
+                    @Html.DropDownList("autorId", new SelectList(@ViewBag.wszyscyAutorzy, "AutorId", "Nazwisko"))
+                </div>
+            </div>
+            <br />
+
+            <div class="form-group">
+                <p>Gatunek:</p>
+                <div class="col-md-10">
+                    @Html.DropDownList("gatunekId", new SelectList(@ViewBag.wszystkieGatunki, "GatunekId", "Nazwa"))
+                </div>
+            </div>
+            <br />
+
+            <div class="form-group">
+                <p>Wydawnictwo:</p>
+                <div class="col-md-10">
+                    @Html.DropDownList("wydawnictwoId", new SelectList(@ViewBag.wszystkieWydawnictwa, "WydawnictwoId", "Nazwa"))
+                </div>
+            </div>
+            <br />
+
+            <p>
+                <input type="submit" value="Zatwierdź" />
+            </p>
+</fieldset>
+}
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Czytelnik.Imie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Czytelnik.Nazwisko)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ksiazka.Nazwa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataWypozyczenia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataOddania)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Czytelnik.Imie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Czytelnik.Nazwisko)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ksiazka.Nazwa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataWypozyczenia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataOddania)
+            </td>
+        </tr>
+    }
+
+</table>

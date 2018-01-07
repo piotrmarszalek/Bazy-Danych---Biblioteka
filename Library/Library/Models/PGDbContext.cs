@@ -43,6 +43,9 @@ namespace Library.Models
             context.Database.ExecuteSqlCommand("CREATE OR REPLACE FUNCTION zmniejsz_ilosc_dostepnych_sztuk_o_jeden() RETURNS trigger AS $zmniejsz_ilosc_dostepnych_sztuk_o_jeden$ BEGIN UPDATE dbo.\"Magazyn\" SET \"DostepnaIlosc\" = \"DostepnaIlosc\" -1; RETURN NULL; END; $zmniejsz_ilosc_dostepnych_sztuk_o_jeden$ LANGUAGE plpgsql;");
             context.Database.ExecuteSqlCommand("CREATE TRIGGER zmniejsz_ilosc_dostepnych_sztuk_o_jeden AFTER INSERT ON dbo.\"Transakcja\" FOR EACH ROW EXECUTE PROCEDURE zmniejsz_ilosc_dostepnych_sztuk_o_jeden();");
 
+            context.Database.ExecuteSqlCommand("CREATE OR REPLACE FUNCTION zwieksz_ilosc_dostepnych_sztuk_o_jeden() RETURNS trigger AS $zwieksz_ilosc_dostepnych_sztuk_o_jeden$ BEGIN UPDATE dbo.\"Magazyn\" SET \"DostepnaIlosc\" = \"DostepnaIlosc\" +1; RETURN NULL; END; $zwieksz_ilosc_dostepnych_sztuk_o_jeden$ LANGUAGE plpgsql;");
+            context.Database.ExecuteSqlCommand("CREATE TRIGGER zwieksz_ilosc_dostepnych_sztuk_o_jeden AFTER UPDATE ON dbo.\"Transakcja\" FOR EACH ROW EXECUTE PROCEDURE zwieksz_ilosc_dostepnych_sztuk_o_jeden();");
+
         }
 
         public class DropCreateIfChangeInitializer : DropCreateDatabaseIfModelChanges<PGDbContext>

@@ -322,6 +322,7 @@
     <Content Include="Views\Transakcja\Index.cshtml" />
     <Content Include="Views\Transakcja\Create.cshtml" />
     <Content Include="Views\Transakcja\Edit.cshtml" />
+    <Content Include="Views\Transakcja\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
