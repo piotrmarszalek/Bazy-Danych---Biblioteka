@@ -1,11 +1,11 @@
 # COLLEGE PROJECT - LIBRARY
 Library is a small project. Created as a part of "Relational databases" course at AGH University of Science and Technology in Kraków.
 
-Requirements:
-polish variable names (unfortuneatly)
-connection to postgresql at faculty
+Requirements:<br />
+polish variable names (unfortuneatly)<br />
+connection to postgresql at faculty<br />
 
-Functionalities:
+Functionalities:<br />
 "Library" is a small application which is meant to present library system. User has an admin role.
 Admin can add new authors, genres, publishers, book, readers, cities they live in.
 What is more is possibility to rent a book to the reader.
