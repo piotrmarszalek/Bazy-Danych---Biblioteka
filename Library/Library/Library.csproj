@@ -220,6 +220,7 @@
     <Compile Include="Controllers\MagazynController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MiastoController.cs" />
+    <Compile Include="Controllers\PGDbContextController.cs" />
     <Compile Include="Controllers\TransakcjaController.cs" />
     <Compile Include="Controllers\WydawnictwoController.cs" />
     <Compile Include="Global.asax.cs">
@@ -326,6 +327,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\PGDbContext\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

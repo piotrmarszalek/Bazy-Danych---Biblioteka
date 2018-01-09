@@ -43,11 +43,12 @@ namespace Library.Controllers
                                     " join dbo.\"Czytelnik\" cz on cz.\"CzytelnikId\" = tr.\"CzytelnikId\""+
                                     " join dbo.\"Miasto\" ms on ms.\"MiastoId\" = cz.\"MiastoId\" ";
 
-            int licznikParametrowNieNull = 0;
-            if (ksiazkaId != null || gatunekId != null || autorId != null || wydawnictwoId != null)
+            int licznikParametrowNieNullNiePustych = 0;
+            if ((ksiazkaId != null || gatunekId != null || autorId != null || wydawnictwoId != null || czytelnikId != null || miastoId != null) && (ksiazkaId != "" || gatunekId != "" || autorId != "" || wydawnictwoId != "" || czytelnikId != "" || miastoId != ""))
             {
                 queryFiltrujace += " WHERE ";
                 List<string> parametryFiltru = new List<string>();
+
                 parametryFiltru.Add(ksiazkaId);
                 parametryFiltru.Add(gatunekId);
                 parametryFiltru.Add(autorId);
@@ -57,14 +58,14 @@ namespace Library.Controllers
 
                 for(int i=0; i<parametryFiltru.Count();i++)
                 {
-                    if(parametryFiltru[i]!= null)
+                    if(parametryFiltru[i]!= null && parametryFiltru[i]!="")
                     {
-                        if(licznikParametrowNieNull > 0)
+                        if(licznikParametrowNieNullNiePustych > 0)
                         {
                             queryFiltrujace += " AND ";
                         }
                         queryFiltrujace += NazwaParametruDlaIndeksu(i) + " = " + parametryFiltru[i];
-                        licznikParametrowNieNull++;
+                        licznikParametrowNieNullNiePustych++;
                     }
                 }
             }
