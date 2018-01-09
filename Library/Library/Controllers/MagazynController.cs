@@ -69,7 +69,7 @@ namespace Library.Controllers
         [HttpPost]
         public ActionResult Edit(Magazyn elementMagazynu)
         {
-            string query = @"UPDATE dbo.""Magazyn"" SET ""KsiazkaId"" = " + elementMagazynu.KsiazkaId + ", \"DostepnaIlosc\" = " + elementMagazynu.DostepnaIlosc + ";";
+            string query = @"UPDATE dbo.""Magazyn"" SET  ""DostepnaIlosc"" = " + elementMagazynu.DostepnaIlosc + " WHERE \"KsiazkaId\"= " + elementMagazynu.KsiazkaId + ";";
             try
             {
                 DB.Database.ExecuteSqlCommand(query);
